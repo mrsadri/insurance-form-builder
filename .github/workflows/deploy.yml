@@ -33,7 +33,7 @@ jobs:
 
       - run: npm run build
         env:
-          VITE_BASE: /rfq-form-explorer/
+          VITE_BASE: /insurance-form-builder/
 
       - uses: actions/upload-pages-artifact@v3
         with:
