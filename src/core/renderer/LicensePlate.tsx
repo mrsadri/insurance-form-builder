@@ -4,6 +4,13 @@ import type { PlateValue } from '../types'
 
 const PLATE_LETTERS = ['ب','ج','د','س','ص','ط','ق','ل','م','ن','و','ه','ی','الف','ع','ژ']
 
+// رنگ پلاک بر اساس حرف وسط (دسته‌بندی رسمی پلاک‌های ایران)
+const PLATE_VARIANTS: Record<string, string> = {
+  'الف': 'plate--red',    // دولتی
+  'ع': 'plate--yellow',   // عمومی
+  'ژ': 'plate--blue',     // معلولین و جانبازان
+}
+
 interface LicensePlateProps {
   title: string
   hint?: string
@@ -43,6 +50,7 @@ export function LicensePlate({
 }: LicensePlateProps) {
   const [focused, setFocused] = useState(false)
   const update = (k: keyof PlateValue, v: string) => onChange?.({ ...value, [k]: v })
+  const variant = (value.letter && PLATE_VARIANTS[value.letter]) || ''
 
   return (
     <FieldShell
@@ -51,7 +59,7 @@ export function LicensePlate({
       errorMessage={errorMessage} stateClass={stateClass}
     >
       <div
-        className={`plate${(focused && interactive) || isFocus ? ' is-focus-plate' : ''}`}
+        className={`plate${variant ? ' ' + variant : ''}${(focused && interactive) || isFocus ? ' is-focus-plate' : ''}`}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
       >
@@ -74,8 +82,10 @@ export function LicensePlate({
           )
           : <span className="plate-letter-s">{value.letter || 'ل'}</span>}
         <PlateInput cls="p3" val={value.p3} ph="۳۴۵" maxLen={3} onCh={v => update('p3', v)} isDisabled={isDisabled} interactive={interactive} />
-        <span className="plate-div" />
-        <PlateInput cls="" val={value.prov} ph="۶۷" maxLen={2} onCh={v => update('prov', v)} isDisabled={isDisabled} interactive={interactive} />
+        <span className="plate-prov">
+          <span className="plate-prov-label">ایران</span>
+          <PlateInput cls="plate-prov-in" val={value.prov} ph="۲۰" maxLen={2} onCh={v => update('prov', v)} isDisabled={isDisabled} interactive={interactive} />
+        </span>
       </div>
     </FieldShell>
   )

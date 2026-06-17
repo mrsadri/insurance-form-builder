@@ -10,7 +10,7 @@ import { LicensePlate } from '../../core/renderer/LicensePlate'
 import { Stepper } from '../../wizard/Stepper'
 import { WizardFooter } from '../../wizard/WizardFooter'
 import { todayJalali } from '../../core/jalali'
-import type { JalaliDate } from '../../core/types'
+import type { JalaliDate, PlateValue } from '../../core/types'
 
 export type ControlKey =
   | 'inputType' | 'radioLayout' | 'rangeUnit' | 'stepCurrent'
@@ -47,6 +47,7 @@ export interface LiveState {
   radio: number
   range: number
   footerLoading: boolean
+  plate: PlateValue
 }
 
 export const defaultLiveState = (): LiveState => {
@@ -57,6 +58,7 @@ export const defaultLiveState = (): LiveState => {
     calY: today.jy, calM: today.jm, calD: today.jd,
     calViewY: today.jy, calViewM: today.jm,
     chips: new Set([0, 2]), radio: 0, range: 4, footerLoading: false,
+    plate: {},
   }
 }
 
@@ -130,12 +132,14 @@ export const COMPONENT_DEFS: Record<string, ComponentDef> = {
       {t:'  "conditions": { "show_if", "disabled_if", "required_if" }',k:'required'},{t:'}'},
     ],
     note: 'مقدار این فیلد ترکیبی است. اعتبارسنجی باید کامل بودن هر چهار بخش را چک کند.',
-    renderState(sk, p) {
+    renderState(sk, p, live, setLive) {
+      const isLive = sk === 'live'
       const filled = sk === 'filled'
       return h(LicensePlate, {
         ...baseField(sk, p),
         isFocus: sk === 'focus',
-        value: filled ? { p2: '۱۲', letter: 'ل', p3: '۳۴۵', prov: '۶۷' } : {},
+        value: isLive ? live.plate : (filled ? { p2: '۱۲', letter: 'ل', p3: '۳۴۵', prov: '۶۷' } : {}),
+        onChange: isLive ? (v: PlateValue) => setLive({ ...live, plate: v }) : undefined,
       })
     },
   },
