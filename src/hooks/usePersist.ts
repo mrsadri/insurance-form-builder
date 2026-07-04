@@ -1,3 +1,4 @@
+// useState-like hook that automatically reads from and writes to localStorage under the given key.
 import { useState } from 'react'
 
 type Updater<T> = T | ((prev: T) => T)

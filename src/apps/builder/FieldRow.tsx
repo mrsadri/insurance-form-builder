@@ -1,3 +1,4 @@
+// Single row for a field inside the builder canvas: drag handle, label, type badge, and edit/delete actions.
 import type { BuilderField } from './builderTypes'
 
 interface FieldRowProps {

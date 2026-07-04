@@ -1,3 +1,4 @@
+// Single-line text input supporting text / number / money (with تومان affix) / national_code / phone_number input types.
 import { FieldShell } from './FieldShell'
 
 export type InputType = 'text' | 'number' | 'money' | 'national_code' | 'phone_number'

@@ -1,3 +1,4 @@
+// Dialog for adding or editing a builder field: type selector, label input, options list, and required toggle.
 import * as Dialog from '@radix-ui/react-dialog'
 import { useState } from 'react'
 import type { BuilderField } from '../builderTypes'

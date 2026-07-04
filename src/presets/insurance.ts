@@ -1,3 +1,6 @@
+// Pre-built FormSchema instances for insurance products: third-party, life (gold), paramedical, body, health, travel, fire,
+// plus flows derived from the "others offline calc" rate sheet: business fire, residential fire, medical liability,
+// building board liability, personal/family accident, and veterinarian liability.
 import type { FormSchema, FormItem } from '../core/types'
 
 let _uid = 0
@@ -170,12 +173,198 @@ export function preset_fire(): FormSchema {
   ])
 }
 
+export function preset_firebiz(): FormSchema {
+  return _form('fire-business', [
+    _stp('کسب‌وکار', [_sec('محل کسب', [
+      _it('select', 'گروه شغلی', { hint: 'گروه شغلی بر اساس صنف تعیین می‌شود', items: _opt(['گروه شغلی اول','گروه شغلی دوم','گروه شغلی سوم','گروه شغلی چهارم']) }),
+      _it('select', 'صنف / فعالیت شغلی', { placeholder: 'انتخاب صنف', items: _opt(['بلورفروشی','دفتر خدماتی / اداری','مطب پزشک','کافی‌شاپ','داروخانه','آرایشگاه','فروشگاه لوازم خانگی','رستوران / اغذیه‌فروشی','سوپرمارکت','خرازی','فروشگاه پوشاک','قنادی','خیاطی','فروشگاه کاغذ','سایر']) }),
+      _it('text', 'آدرس محل کسب'),
+    ])]),
+    _stp('تعهدات و پوشش‌ها', [_sec('سرمایه و خطرات', [
+      _it('range', 'ضریب افزایش تعهدات', { options: { min: 1, max: 20, unit: 'برابر' }, hint: 'حق بیمه متناسب با ضریب، از ۱ تا حداکثر ۲۰ برابر حداقل تعهدات افزایش می‌یابد' }),
+      _it('chips_select', 'پوشش‌های اضافه', { required: false, items: _opt(['سرقت با شکست حرز','زلزله و آتشفشان','سیل و طغیان آب','طوفان و گردباد','شکست شیشه سکوریت','پول در گاوصندوق','وقفه در فعالیت (زیان مالی)','مسئولیت در قبال همسایگان','هزینه پاکسازی']) }),
+    ])]),
+    _stp('بیمه‌گذار', [_sec('مشخصات', [
+      _it('text', 'نام و نام خانوادگی'), _it('national_code', 'کد ملی'), _it('phone_number', 'شماره موبایل'),
+    ])]),
+  ])
+}
+
+export function preset_firehome(): FormSchema {
+  return _form('fire-residential', [
+    _stp('ملک', [_sec('واحد مسکونی', [
+      _it('radio', 'وضعیت مالکیت', { items: _opt(['مالک','مستاجر']) }),
+      _it('range', 'ضریب سرمایه', { options: { min: 3, max: 100, unit: 'برابر' }, hint: 'تعهدات پایه در ضریب انتخابی ضرب می‌شود' }),
+    ])]),
+    _stp('خطرات تحت پوشش', [_sec('پوشش‌ها', [
+      _it('radio', 'پوشش سرقت', { items: _opt(['با خطر سرقت','بدون خطر سرقت']) }),
+      _it('chips_select', 'خطرات اضافه', { required: false, items: _opt(['زلزله و آتشفشان','ترکیدگی لوله آب','سیل و طغیان','طوفان و گردباد','ضایعات ذوب برف و آب باران','نوسانات جریان برق']) }),
+    ])]),
+    _stp('بیمه‌گذار', [_sec('مشخصات', [
+      _it('text', 'نام و نام خانوادگی'), _it('national_code', 'کد ملی'), _it('phone_number', 'شماره موبایل'), _it('text', 'آدرس ملک'),
+    ])]),
+  ])
+}
+
+export function preset_medliability(): FormSchema {
+  return _form('medical-liability', [
+    _stp('اطلاعات شغلی', [_sec('تخصص و سطح علمی', [
+      _it('radio', 'گروه', { items: _opt(['پزشکان','پیراپزشکان']) }),
+      _it('select', 'گروه‌بندی شغلی', { placeholder: 'انتخاب گروه', items: _opt([
+        'جراحان زنان و زایمان، جراحان عمومی، بیهوشی، ارتوپدی',
+        'جراحان قلب، مغز و اعصاب، چشم، ترمیمی و پلاستیک، ارولوژی',
+        'جراحان فک و صورت، گوش و حلق و بینی، دندان و لثه، پوست، اطفال',
+        'پزشکان متخصص غیر جراح، دندانپزشکان و پزشکان عمومی',
+        'ماماهای دارای مطب مستقل',
+        'ماماهای شاغل در بیمارستان و بهداشت‌کاران دهان و دندان',
+        'کارشناسان بیهوشی، فیزیوتراپی و پرستاران CCU/ICU و اورژانس',
+        'پرستاران و بهیاران سایر بخش‌ها و تکنسین‌های اتاق عمل',
+        'تکنسین‌های رادیولوژی، آزمایشگاه، داروخانه و کمک‌بهیاران',
+      ]) }),
+      _it('radio', 'سطح علمی', { items: _opt(['دانشجو','رزیدنت','فلوشیپ','سایر']) }),
+      _it('text', 'شماره نظام پزشکی', { hint: 'بارگذاری مدرک نظام پزشکی برای صدور الزامی است' }),
+    ])]),
+    _stp('پوشش و تخفیف', [_sec('تعهدات', [
+      _it('select', 'تعداد دیه', { items: _opt(['یک دیه','دو دیه','سه دیه','چهار دیه']) }),
+      _it('select', 'سابقه عدم خسارت', { hint: 'اعمال تخفیف مستلزم گواهی عدم خسارت مهرشده از شرکت قبلی است', items: _opt(['بدون سابقه','یک سال','دو سال','سه سال','چهار سال و بیشتر']) }),
+      _it('chips_select', 'پوشش‌های تکمیلی', { required: false, items: _opt(['تعدد دیات و دیات غیرمسری','افزایش ریالی دیه','خسارت ناشی از جنگ','اعمال مجاز سرپایی و زیبایی','مسئول فنی داروخانه','افزایش مرور زمان ادعای خسارت']) }),
+    ])]),
+    _stp('بیمه‌گذار', [_sec('مشخصات', [
+      _it('text', 'نام و نام خانوادگی'), _it('national_code', 'کد ملی'), _it('phone_number', 'شماره موبایل'),
+      _it('radio', 'گواهی عدم خسارت مهرشده دارید؟', { items: _opt(['بله','خیر']) }),
+    ])]),
+  ])
+}
+
+export function preset_boardliability(): FormSchema {
+  return _form('building-board-liability', [
+    _stp('مشخصات ساختمان', [_sec('ساختمان', [
+      _it('radio', 'نوع کاربری', { items: _opt(['مسکونی','اداری','تجاری']) }),
+      _it('number', 'تعداد واحد', { placeholder: 'مثلاً ۱۰' }),
+      _it('number', 'تعداد طبقات', { placeholder: 'مثلاً ۵' }),
+      _it('radio', 'قدمت ساختمان', { items: _opt(['تا ۲۰ سال','بیش از ۲۰ سال']) }),
+      _it('number', 'تعداد کارکنان ساختمان', { required: false, placeholder: 'مثلاً ۲' }),
+    ])]),
+    _stp('امکانات مشاعات', [_sec('امکانات و ایمنی', [
+      _it('chips_select', 'امکانات ساختمان', { required: false, items: _opt(['آسانسور','پله برقی','استخر، سونا و جکوزی','سالن ورزشی','محوطه بازی','پارکینگ','سالن اجتماعات']) }),
+      _it('chips_select', 'امکانات ایمنی', { required: false, hint: 'برخی موارد مشمول تخفیف حق بیمه می‌شوند', items: _opt(['نگهبان ۲۴ ساعته','دوربین مداربسته','سیستم اعلان و اطفاء حریق','بیمه‌نامه معتبر آتش‌سوزی']) }),
+    ])]),
+    _stp('پوشش‌ها', [_sec('پوشش‌های اضافی', [
+      _it('chips_select', 'پوشش‌های اضافی', { required: false, items: _opt(['پرداخت خسارت بدون رای دادگاه','حذف فرانشیز هزینه‌های پزشکی','افزایش ریالی دیه','تعدد دیات و دیات غیرمسری','غرامت فوت و نقص عضو بیمه‌گذار','هزینه پزشکی بدون اعمال تعرفه']) }),
+      _it('radio', 'سابقه عدم خسارت', { items: _opt(['دارد','ندارد']) }),
+    ])]),
+    _stp('مدیر ساختمان', [_sec('مشخصات بیمه‌گذار', [
+      _it('text', 'نام و نام خانوادگی مدیر'), _it('national_code', 'کد ملی'), _it('phone_number', 'شماره موبایل'), _it('text', 'آدرس ساختمان'),
+    ])]),
+  ])
+}
+
+export function preset_accident(): FormSchema {
+  return _form('personal-accident', [
+    _stp('نوع طرح', [_sec('طرح', [
+      _it('radio', 'نوع بیمه', { items: _opt(['انفرادی','خانواده']) }),
+      _it('radio', 'تعداد اعضای خانواده', { required: false, hint: 'فقط برای بیمه خانواده', items: _opt(['۱ تا ۴ نفر','۵ تا ۸ نفر']) }),
+    ])]),
+    _stp('گروه خطر شغلی', [_sec('شغل', [
+      _it('select', 'گروه شغلی', { placeholder: 'انتخاب گروه خطر', items: _opt([
+        'طبقه ۱: محصل، دانشجو، کارمند و مشاغل دفتری',
+        'طبقه ۲: مشاغل خدماتی، کادر درمان، فروشندگی و رسانه',
+        'طبقه ۳: مسافرت خارجی، کار با ابزار سبک، سینما و تئاتر',
+        'طبقه ۴: کار با ماشین‌آلات سنگین و صنعتی',
+        'طبقه ۵: کار با برق، مواد شیمیایی، ارتفاع و اسلحه',
+      ]) }),
+      _it('radio', 'مدت بیمه', { items: _opt(['۱۲ ماهه','۶ ماهه','۳ ماهه']) }),
+    ])]),
+    _stp('تعهدات', [_sec('سرمایه', [
+      _it('select', 'سرمایه فوت و نقص عضو', { hint: 'هزینه پزشکی معادل ۱۰٪ سرمایه فوت است', items: _opt(['۳۰۰ میلیون ریال','۵۰۰ میلیون ریال','۷۰۰ میلیون ریال','۱ میلیارد ریال','۲ میلیارد ریال','۳ میلیارد ریال','۴ میلیارد ریال','۵ میلیارد ریال']) }),
+    ])]),
+    _stp('بیمه‌شده', [_sec('مشخصات', [
+      _it('text', 'نام و نام خانوادگی'), _it('national_code', 'کد ملی'), _it('datepicker', 'تاریخ تولد'), _it('phone_number', 'شماره موبایل'),
+    ])]),
+  ])
+}
+
+export function preset_vetliability(): FormSchema {
+  return _form('vet-liability', [
+    _stp('حرفه', [_sec('اطلاعات حرفه‌ای', [
+      _it('select', 'گروه تخصصی', { items: _opt(['دامپزشک عمومی','جراح متخصص','کاردان دامپزشکی']) }),
+      _it('select', 'سطح مدرک دامپزشکی', { items: _opt(['کاردانی','کارشناسی','دکترای حرفه‌ای','متخصص']) }),
+      _it('radio', 'گواهی سازمان دامپزشکی', { items: _opt(['دارد','ندارد']) }),
+      _it('text', 'شماره نظام دامپزشکی'),
+    ])]),
+    _stp('تعهدات', [_sec('سقف تعهد', [
+      _it('select', 'تعهد مالی در طول مدت بیمه', { items: _opt(['۱ میلیارد ریال','۵ میلیارد ریال']) }),
+      _it('select', 'سابقه عدم خسارت', { items: _opt(['بدون سابقه','یک سال','دو سال','سه سال و بیشتر']) }),
+    ])]),
+    _stp('بیمه‌گذار', [_sec('مشخصات', [
+      _it('text', 'نام و نام خانوادگی'), _it('national_code', 'کد ملی'), _it('phone_number', 'شماره موبایل'),
+    ])]),
+  ])
+}
+
+// Offer-list differentiators per branch (product_id → insurer offers). These are deliberately
+// NOT asked in the RFQ wizard above: the RFQ collects only risk data, the backend fans out to
+// these insurers/tiers, and the user compares premiums in the offer list before the RFS
+// (issuance) step. Rates come from the "others offline calc" sheet.
+export interface OfferOption {
+  insurer: string
+  plan?: string
+  note?: string
+}
+
+export const OFFERS: Record<string, OfferOption[]> = {
+  'fire-business': [
+    { insurer: 'سامان', plan: 'طرح اصناف' },
+    { insurer: 'سامان', plan: 'مراقب کار — برنزی' },
+    { insurer: 'سامان', plan: 'مراقب کار — نقره‌ای' },
+    { insurer: 'سامان', plan: 'مراقب کار — طلایی' },
+  ],
+  'fire-residential': [
+    { insurer: 'سامان', plan: 'خانه امن' },
+    { insurer: 'سامان', plan: 'جامع منازل — برنزی' },
+    { insurer: 'سامان', plan: 'جامع منازل — نقره‌ای' },
+    { insurer: 'سامان', plan: 'جامع منازل — طلایی' },
+    { insurer: 'سینا', plan: 'بیمه بازار — نقره‌ای' },
+    { insurer: 'سینا', plan: 'بیمه بازار — طلایی' },
+    { insurer: 'دی', plan: 'خانه ایمن', note: 'استعلام آنلاین از سامانه دیدار' },
+  ],
+  'medical-liability': [
+    { insurer: 'معلم', note: 'قیمت ثابت؛ تخفیف عدم خسارت اعمال نمی‌شود' },
+    { insurer: 'دی' },
+    { insurer: 'پارسیان', note: 'صدور با نماینده خارجی؛ فرم پیشنهاد الزامی' },
+    { insurer: 'کوثر', note: 'پزشکان فقط با یک دیه صادر می‌شود' },
+    { insurer: 'ایران' },
+    { insurer: 'سینا' },
+  ],
+  'building-board-liability': [
+    { insurer: 'سامان' },
+    { insurer: 'پارسیان' },
+    { insurer: 'سینا' },
+    { insurer: 'دی', note: 'استعلام آنلاین از سامانه دیدار' },
+  ],
+  'personal-accident': [
+    { insurer: 'کوثر', plan: 'حوادث انفرادی' },
+    { insurer: 'سینا', plan: 'حوادث خانواده — طرح ۱/۲/۳' },
+    { insurer: 'آسیا', plan: 'طرح لبخند' },
+  ],
+  'vet-liability': [
+    { insurer: 'سینا' },
+    { insurer: 'سامان' },
+  ],
+}
+
 export const PRESETS = [
-  { key: 'thirdparty', ic: '🚗', label: 'شخص ثالث', fn: preset_thirdparty },
-  { key: 'goldlife',   ic: '🪙', label: 'عمر بر پایه طلا', fn: preset_goldlife },
-  { key: 'paramed',   ic: '🩺', label: 'پیراپزشکی', fn: preset_paramed },
-  { key: 'body',      ic: '🛡️', label: 'بدنه', fn: preset_body },
-  { key: 'health',    ic: '🏥', label: 'درمان تکمیلی', fn: preset_health },
-  { key: 'travel',    ic: '✈️', label: 'مسافرتی', fn: preset_travel },
-  { key: 'fire',      ic: '🔥', label: 'آتش‌سوزی', fn: preset_fire },
+  { key: 'thirdparty',      ic: '🚗', label: 'شخص ثالث',              fn: preset_thirdparty },
+  { key: 'goldlife',        ic: '🪙', label: 'عمر بر پایه طلا',       fn: preset_goldlife },
+  { key: 'paramed',         ic: '🩺', label: 'پیراپزشکی',             fn: preset_paramed },
+  { key: 'body',            ic: '🛡️', label: 'بدنه',                  fn: preset_body },
+  { key: 'health',          ic: '🏥', label: 'درمان تکمیلی',          fn: preset_health },
+  { key: 'travel',          ic: '✈️', label: 'مسافرتی',               fn: preset_travel },
+  { key: 'fire',            ic: '🔥', label: 'آتش‌سوزی',              fn: preset_fire },
+  { key: 'firebiz',         ic: '🏪', label: 'آتش‌سوزی تجاری',        fn: preset_firebiz },
+  { key: 'firehome',        ic: '🏠', label: 'آتش‌سوزی مسکونی',       fn: preset_firehome },
+  { key: 'medliability',    ic: '⚕️', label: 'مسئولیت پزشکی',         fn: preset_medliability },
+  { key: 'boardliability',  ic: '🏢', label: 'مسئولیت هیئت مدیره',    fn: preset_boardliability },
+  { key: 'accident',        ic: '🤕', label: 'حوادث انفرادی',         fn: preset_accident },
+  { key: 'vetliability',    ic: '🐾', label: 'مسئولیت دامپزشکی',     fn: preset_vetliability },
 ]

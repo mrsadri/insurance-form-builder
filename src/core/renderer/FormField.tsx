@@ -1,3 +1,4 @@
+// Dispatcher: maps a FormItem's type to the correct renderer component (TextField, SelectField, DatePicker, etc.).
 import { TextField } from './TextField'
 import { SelectField } from './SelectField'
 import { ChipsSelect } from './ChipsSelect'

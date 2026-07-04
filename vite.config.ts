@@ -1,3 +1,4 @@
+// Vite build config: React + Tailwind plugins; base path is '/' in dev and '/insurance-form-builder/' for GitHub Pages prod builds.
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'

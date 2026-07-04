@@ -1,3 +1,4 @@
+// Component definitions for the Explorer: metadata, schema lines, control lists, and renderState functions for each field type.
 import type { ReactNode } from 'react'
 import { createElement as h } from 'react'
 import { TextField } from '../../core/renderer/TextField'

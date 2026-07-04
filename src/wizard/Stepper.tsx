@@ -1,3 +1,4 @@
+// Visual step progress indicator: shows completed (✓), current (number), and upcoming steps as clickable bubbles.
 import { fa } from '../i18n/fa'
 
 interface StepperProps {

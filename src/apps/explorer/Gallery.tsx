@@ -1,3 +1,4 @@
+// Grid of static state cards: renders every visual state of the currently selected component side-by-side.
 import type { ComponentDef, ExplorerProps, LiveState } from './explorerDefs'
 
 interface GalleryProps {

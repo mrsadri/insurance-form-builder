@@ -1,3 +1,4 @@
+// Multi-select input rendered as toggleable chip tags; each chip shows a dismiss × when selected.
 import { FieldShell } from './FieldShell'
 import type { OptionItem } from '../types'
 import { fa } from '../../i18n/fa'

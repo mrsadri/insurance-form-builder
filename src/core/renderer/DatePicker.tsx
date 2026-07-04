@@ -1,3 +1,4 @@
+// Jalali (Persian) date picker: trigger button + popover calendar grid with month navigation.
 import { useEffect, useRef, useState } from 'react'
 import { FieldShell } from './FieldShell'
 import { toGregorian, jalaliMonthLen, J_MONTHS, todayJalali } from '../jalali'

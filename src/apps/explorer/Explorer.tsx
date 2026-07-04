@@ -1,3 +1,4 @@
+// Component explorer view: type switcher, live props panel, interactive preview, and static state gallery.
 import { useState } from 'react'
 import { PropsPanel } from './PropsPanel'
 import { Gallery } from './Gallery'

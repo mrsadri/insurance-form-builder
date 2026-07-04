@@ -1,3 +1,4 @@
+// Horizontal step tab bar for the builder: navigate between steps, rename, delete, and add new steps.
 import { fa } from '../../i18n/fa'
 import type { BuilderStep } from './builderTypes'
 

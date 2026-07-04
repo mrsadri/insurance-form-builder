@@ -1,3 +1,4 @@
+// Single-handle range slider with Farsi numeral display, unit label, and live fill/thumb position via DOM refs.
 import { useRef } from 'react'
 import { FieldShell } from './FieldShell'
 import { fa } from '../../i18n/fa'

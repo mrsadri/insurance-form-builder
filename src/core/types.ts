@@ -1,3 +1,4 @@
+// Shared TypeScript types for the form schema: FormSchema, Step, Section, FormItem, and value shapes.
 export type ItemType =
   | 'text' | 'number' | 'money' | 'national_code' | 'phone_number'
   | 'license_plate' | 'select' | 'chips_select' | 'radio'

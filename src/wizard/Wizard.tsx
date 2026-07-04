@@ -1,6 +1,8 @@
+// Stateful multi-step form wizard: renders the current step's sections, validates required fields, and advances through steps.
 import { useState } from 'react'
 import { Stepper } from './Stepper'
 import { WizardFooter } from './WizardFooter'
+import { OfferList } from './OfferList'
 import { FormField } from '../core/renderer/FormField'
 import type { FormSchema, PlateValue, JalaliDate } from '../core/types'
 
@@ -52,7 +54,10 @@ export function Wizard({ schema }: WizardProps) {
   return (
     <section className="panel pv-card">
       {done && (
-        <div className="howto" style={{ marginBottom: 18 }}>فرم با موفقیت ثبت شد ✓ (نمونه‌ی نمایشی)</div>
+        <>
+          <div className="howto" style={{ marginBottom: 18 }}>فرم با موفقیت ثبت شد ✓ (نمونه‌ی نمایشی)</div>
+          <OfferList productId={schema.product_id} />
+        </>
       )}
       <div style={{ marginBottom: 22 }}>
         <Stepper steps={steps} current={current} onStepClick={setCurrent} fullWidth />

@@ -1,3 +1,4 @@
+// Single-select rendered as a vertical or horizontal list of radio items; supports focus-highlight for gallery states.
 import { FieldShell } from './FieldShell'
 import type { OptionItem } from '../types'
 

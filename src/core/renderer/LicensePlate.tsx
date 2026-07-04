@@ -1,3 +1,4 @@
+// Iranian vehicle license plate input: two digits + letter (select) + three digits + province code, with letter-based color variants.
 import { useState } from 'react'
 import { FieldShell } from './FieldShell'
 import type { PlateValue } from '../types'

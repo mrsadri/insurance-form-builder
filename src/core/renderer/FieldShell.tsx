@@ -1,3 +1,4 @@
+// Layout wrapper used by every form field: renders the label, required/optional badge, child input, hint, and error message.
 interface FieldShellProps {
   title: string
   required?: boolean

@@ -1,3 +1,4 @@
+// Prev / Next navigation bar for the wizard; shows a loading spinner while the next step is being submitted.
 interface WizardFooterProps {
   isFirst: boolean
   isLast: boolean

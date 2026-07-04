@@ -1,3 +1,4 @@
+// Theme editor: live controls for brand color, corner radius, button size, font, and light/dark mode with CSS token export.
 import { SchemaPanel } from '../explorer/SchemaPanel'
 import { generateTokensCSS, type ThemeValues } from '../../hooks/useTheme'
 import { fa } from '../../i18n/fa'

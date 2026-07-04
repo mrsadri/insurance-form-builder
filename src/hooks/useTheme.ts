@@ -1,3 +1,4 @@
+// Applies ThemeValues as CSS custom properties on :root and exports the current token set as copy-ready CSS.
 import { useEffect } from 'react'
 
 export interface ThemeValues {

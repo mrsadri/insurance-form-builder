@@ -1,3 +1,4 @@
+// Preview view: paste or load a FormSchema JSON and render it as a fully interactive multi-step wizard.
 import { useState } from 'react'
 import { Wizard } from '../../wizard/Wizard'
 import { SchemaPanel } from '../explorer/SchemaPanel'

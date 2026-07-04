@@ -1,3 +1,4 @@
+// Generic single-text-input dialog used for naming/renaming steps and sections in the builder.
 import * as Dialog from '@radix-ui/react-dialog'
 import { useState } from 'react'
 

@@ -1,3 +1,4 @@
+// Fixed right-side panel: syntax-highlighted schema or JSON with active-key highlighting and a copy button.
 import type { SchemaLine } from './explorerDefs'
 
 function jsonHighlight(json: string) {

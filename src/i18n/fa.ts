@@ -1,3 +1,4 @@
+// Converts ASCII digits to Persian (Farsi) numerals and formats Jalali dates as ۱۴۰۳/۰۱/۰۱.
 export const fa = (n: number | string) =>
   String(n).replace(/\d/g, (d) => '۰۱۲۳۴۵۶۷۸۹'[+d])
 

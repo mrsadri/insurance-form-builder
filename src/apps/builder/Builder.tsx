@@ -1,3 +1,4 @@
+// Visual form builder canvas: drag-and-drop step/section/field management with live JSON export and preset loader.
 import { useReducer, useRef, useState } from 'react'
 import { StepBar } from './StepBar'
 import { SectionBlock } from './SectionBlock'

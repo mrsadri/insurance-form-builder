@@ -1,3 +1,4 @@
+// Controls sidebar in the Explorer: renders the relevant toggles and inputs to tweak component props live.
 import type { ControlKey, ExplorerProps } from './explorerDefs'
 
 interface PropsPanelProps {

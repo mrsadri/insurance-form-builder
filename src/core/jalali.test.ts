@@ -1,3 +1,4 @@
+// Unit tests for Jalali calendar utilities: conversion accuracy and month length correctness.
 import { describe, it, expect } from 'vitest'
 import { toJalali, toGregorian, jalaliMonthLen, todayJalali } from './jalali'
 

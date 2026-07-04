@@ -1,3 +1,4 @@
+// Section container in the builder canvas: editable title, drag handle, internal field drop zones, and add/delete controls.
 import { useRef } from 'react'
 import { FieldRow } from './FieldRow'
 import type { BuilderField } from './builderTypes'

@@ -1,3 +1,4 @@
+// Integration tests: verifies that converting a FormSchema to BuilderState and back is lossless.
 import { describe, it, expect } from 'vitest'
 import { builderStateToSchema, schemaToBuilderState } from '../apps/builder/builderReducer'
 import { PRESETS } from '../presets/insurance'

@@ -1,3 +1,4 @@
+// React class component that catches unhandled runtime errors and renders a readable stack trace.
 import { Component, type ReactNode } from 'react'
 
 interface Props { children: ReactNode }

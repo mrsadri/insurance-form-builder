@@ -1,3 +1,4 @@
+// Root shell: top-level nav (Explorer / Builder / Preview / Settings) with persisted theme state.
 import { useState } from 'react'
 import { Explorer } from './apps/explorer/Explorer'
 import { Builder } from './apps/builder/Builder'

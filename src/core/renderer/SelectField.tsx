@@ -1,3 +1,4 @@
+// Dropdown single-select field with a custom popover menu and outside-click-to-close behavior.
 import { useEffect, useRef, useState } from 'react'
 import { FieldShell } from './FieldShell'
 import type { OptionItem } from '../types'

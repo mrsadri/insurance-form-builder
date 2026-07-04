@@ -1,3 +1,4 @@
+// useReducer logic for the Builder: all state transitions (add/edit/delete/drag-drop) and bidirectional FormSchema ↔ BuilderState conversion.
 import type { BuilderState, BuilderAction, BuilderBlock } from './builderTypes'
 import { FB_LBL, FB_OPTS, FB_HAS_OPTS } from './builderTypes'
 import type { ItemType } from '../../core/types'

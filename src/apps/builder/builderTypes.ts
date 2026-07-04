@@ -1,3 +1,4 @@
+// Internal types and constants for the form builder: BuilderField, BuilderBlock, BuilderState, action union, and label/option maps.
 import type { ItemType } from '../../core/types'
 
 export interface BuilderField {
