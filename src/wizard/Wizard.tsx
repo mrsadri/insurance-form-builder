@@ -4,6 +4,7 @@ import { Stepper } from './Stepper'
 import { WizardFooter } from './WizardFooter'
 import { OfferList } from './OfferList'
 import { FormField } from '../core/renderer/FormField'
+import { itemVisible } from '../core/conditions'
 import type { FormSchema, PlateValue, JalaliDate } from '../core/types'
 
 type FieldValue = string | number | (string | number)[] | PlateValue | JalaliDate | null
@@ -21,6 +22,11 @@ export function Wizard({ schema }: WizardProps) {
   const steps = schema.steps
   const step = steps[current]
 
+  // Apply show_if conditions: hidden sections/items are neither rendered nor validated.
+  const visibleSections = step.sections
+    .filter(sec => itemVisible(sec.conditions, values))
+    .map(sec => ({ ...sec, items: sec.items.filter(it => itemVisible(it.conditions, values)) }))
+
   const isFilled = (id: string, type: string): boolean => {
     const v = values[id]
     if (type === 'chips_select') return Array.isArray(v) && v.length > 0
@@ -35,7 +41,7 @@ export function Wizard({ schema }: WizardProps) {
 
   const validate = () => {
     const errs = new Set<string>()
-    step.sections.forEach(sec => sec.items.forEach(item => {
+    visibleSections.forEach(sec => sec.items.forEach(item => {
       if (item.required && !isFilled(item.id, item.type)) errs.add(item.id)
     }))
     setErrors(errs)
@@ -63,7 +69,7 @@ export function Wizard({ schema }: WizardProps) {
         <Stepper steps={steps} current={current} onStepClick={setCurrent} fullWidth />
       </div>
       <div className="pv-sections">
-        {step.sections.map((sec, si) => (
+        {visibleSections.map((sec, si) => (
           <div key={si} className="section" style={{ maxWidth: 'none' }}>
             {sec.title && <div className="section-head">{sec.title}</div>}
             <div className="section-body">

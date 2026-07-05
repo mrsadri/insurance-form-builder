@@ -6,8 +6,12 @@ export function evalCondition(expr: string | null | undefined, values: Record<st
   if (!expr) return true
   const eqMatch = expr.match(/^(\w+)\s*==\s*'([^']*)'$/)
   if (eqMatch) return String(values[eqMatch[1]] ?? '') === eqMatch[2]
+  // "!=" only matches once the field has a value: a dependent field stays hidden until its controller is answered.
   const neqMatch = expr.match(/^(\w+)\s*!=\s*'([^']*)'$/)
-  if (neqMatch) return String(values[neqMatch[1]] ?? '') !== neqMatch[2]
+  if (neqMatch) {
+    const v = String(values[neqMatch[1]] ?? '')
+    return v !== '' && v !== neqMatch[2]
+  }
   return true
 }
 
