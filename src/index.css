@@ -219,8 +219,9 @@ body{font-family:var(--body);background:var(--paper);color:var(--ink);
 .cal-grid .d.today{box-shadow:inset 0 0 0 1.5px var(--brand)}
 .cal-grid .d.sel{background:var(--brand);color:#fff;font-weight:700}
 
-.section{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--surface);width:100%;max-width:480px}
-.section-head{padding:13px 16px;border-bottom:1px solid var(--line);font-weight:700;font-size:14px;background:var(--surface-2);display:flex;align-items:center;gap:8px}
+/* overflow must stay visible so select/datepicker popovers can escape the card; the head rounds its own top corners */
+.section{border:1px solid var(--line);border-radius:var(--radius);overflow:visible;background:var(--surface);width:100%;max-width:480px}
+.section-head{padding:13px 16px;border-bottom:1px solid var(--line);font-weight:700;font-size:14px;background:var(--surface-2);display:flex;align-items:center;gap:8px;border-radius:calc(var(--radius) - 1px) calc(var(--radius) - 1px) 0 0}
 .section-body{padding:18px 16px;display:flex;flex-direction:column;gap:16px}
 .section-cond{font-family:var(--mono);font-size:10px;color:var(--warn);background:var(--warn-soft);padding:3px 8px;border-radius:999px;margin-inline-start:auto;direction:ltr}
 
