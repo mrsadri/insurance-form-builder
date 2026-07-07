@@ -9,3 +9,7 @@ tsconfig.tsbuildinfo
 # graphify tooling
 .graphifyignore
 graphify-out/
+
+# Confidential — never commit
+others offline calc  .xlsx
+*.xlsx
